@@ -1,0 +1,25 @@
+Could not find lint-gradle-api.jar (com.android.tools.lint:lint-gradle-api:26.1.2). Searched in the following locations: https://jcenter.bintray.com/com/android/tools/lint/lint-gradle-api/26.1.2/lint-gradle-api-26.1.2.jar
+
+
+was getting this error because Android Studio 3.0 using Gradle-4.1 and android-gradle-plugin:3.0.0
+
+	Gradle 4.1 is not supported yet in LibGDX, there is an issue for the same, which is now upgraded for Gradle 4.6
+
+	To fix this error:
+	C:\Users\lzheng\Desktop\MarioBros\gradle\wrapper\gradle-wrapper.properties and changed the distributionUrl:
+	distributionUrl=https\://services.gradle.org/distributions/gradle-4.4-all.zip to 
+	distributionUrl=https\://services.gradle.org/distributions/gradle-3.3-all.zip
+
+	then went to C:\Users\lzheng\Desktop\MarioBros\build.gradle and changed this line:
+	classpath 'com.android.tools.build:gradle:3.1.2' to
+	classpath 'com.android.tools.build:gradle:2.3.3'
+	and Comment/delete google() from repo list
+
+	this downgraded gradle to 3.3 from 4.1
+	and Downgrade Android-gradle-plugin to 2.3.3 from 3.0.0
+
+	this solution was found here: https://stackoverflow.com/questions/46975883/error2-0-plugin-with-id-jetty-not-found
+	(the title was jetty not found because after searching for the could not find error, i did some other changes that other people suggested, and the
+	error eventually lead to jetty not found. and then when i did the changes listed in this article, and reverted all the changes from the other
+	articles, it fixed the error.)
+
