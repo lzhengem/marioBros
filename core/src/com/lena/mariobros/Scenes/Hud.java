@@ -36,7 +36,7 @@ public class Hud {
 
         Table table = new Table(); //create a container to put in widgets
         table.top(); //puts the table at the top of the stage
-        table.setFillParent(true); //sets the table to the size of its parent - the stage
+        table.setFillParent(true); //sets the table to the size of its parent - which will be the stage
 
         countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
