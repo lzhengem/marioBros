@@ -21,9 +21,9 @@ public class PlayScreen implements Screen {
         this.game = game;
         this.texture = new Texture("badlogic.jpg");
         gamecam = new OrthographicCamera();
-//        gamePort = new StretchViewport(800,490,gamecam);
-//        gamePort = new ScreenViewport(gamecam);
-        gamePort = new FitViewport(800,480,gamecam);
+//        gamePort = new StretchViewport(800,490,gamecam); //stretches the photo to the screen
+//        gamePort = new ScreenViewport(gamecam); //picture does not change size, it will get cut off from the screen if screen gets smaller
+        gamePort = new FitViewport(MarioBros.V_WIDTH,MarioBros.V_HEIGHT,gamecam); //fits the width or height onto the screen. our screen is 800 x 480
     }
     @Override
     public void show() {
@@ -37,9 +37,10 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //set the camera
         game.batch.setProjectionMatrix(gamecam.combined);
+
         //drawing the texture on the screen
         game.batch.begin();
-        game.batch.draw(texture,0,0);
+        game.batch.draw(texture,0,0); //0,0 is at the center of the screen
         game.batch.end();
     }
 

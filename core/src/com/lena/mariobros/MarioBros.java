@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.lena.mariobros.Screens.PlayScreen;
 
 public class MarioBros extends Game {
+	public static final int V_WIDTH = 400; //virtual width for game
+	public static final int V_HEIGHT = 208; //virtual height for game
+
 	public SpriteBatch batch; //only want to create one spritebatch because it is memory intensive
 	
 	@Override
