@@ -1,6 +1,7 @@
 package com.lena.mariobros.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -118,8 +119,13 @@ public class PlayScreen implements Screen {
 
     }
     public void handleInput(float dt){
-        if(Gdx.input.isTouched()) //if screen is being touched or finger touches phone
-            gamecam.position.x += 100 * dt;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) //if up was pressed
+            player.b2body.applyLinearImpulse(new Vector2(0,4f),player.b2body.getWorldCenter(),true); //move the player vertically 4f, from its center, and this wakes up the object
+
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2)
+            player.b2body.applyLinearImpulse(new Vector2(0.1f,0), player.b2body.getWorldCenter(), true);
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2)
+            player.b2body.applyLinearImpulse(new Vector2(-0.1f,0), player.b2body.getWorldCenter(), true);
     }
     //does updating of gameworld
     public void update(float dt){
@@ -127,6 +133,7 @@ public class PlayScreen implements Screen {
         handleInput(dt);
 
         world.step(1/60f,6,2);
+        gamecam.position.x = player.b2body.getPosition().x;
         //update camera everytime something happens
         gamecam.update();
         renderer.setView(gamecam); //only render what gamecam can see
