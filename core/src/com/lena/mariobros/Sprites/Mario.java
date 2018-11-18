@@ -7,13 +7,16 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.lena.mariobros.MarioBros;
+import com.lena.mariobros.Screens.PlayScreen;
 
 public class Mario extends Sprite {
     public World world; //the world mario will live in
     public Body b2body;
 
 
-    public Mario(World world){
+    public Mario(World world, PlayScreen screen){
+        //gets all the sprite action that the little mario can do
+        super(screen.getAtlas().findRegion("little_mario"));
         this.world = world;
         defineMario();
     }
