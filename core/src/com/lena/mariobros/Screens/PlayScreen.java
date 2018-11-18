@@ -112,6 +112,12 @@ public class PlayScreen implements Screen {
 
         //renderer our Box2DDebugLines
         b2dr.render(world,gamecam.combined);
+
+        game.batch.setProjectionMatrix(gamecam.combined);//main camera
+        game.batch.begin(); //open the box to put in the textures
+        player.draw(game.batch);
+        game.batch.end();
+
         //set the camera to show the hud
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         //draw the hud
