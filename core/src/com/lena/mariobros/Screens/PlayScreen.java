@@ -27,6 +27,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.lena.mariobros.MarioBros;
 import com.lena.mariobros.Scenes.Hud;
 import com.lena.mariobros.Sprites.Mario;
+import com.lena.mariobros.Tools.B2WorldCreator;
 
 public class PlayScreen implements Screen {
     private MarioBros game;
@@ -60,56 +61,7 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0,-10),true); //means if object is not called, this world wont take note of it
         b2dr = new Box2DDebugRenderer();
 
-        //define body and fixtures
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape(); //for fixture
-        FixtureDef fdef = new FixtureDef();
-        Body body;
-
-        //create ground body and fixtures around ground in tiled
-        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth()/2)/MarioBros.PPM, (rect.getY() + rect.getHeight()/2)/MarioBros.PPM);
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/MarioBros.PPM, rect.getHeight()/2/MarioBros.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-        //create pipe body and fixtures around pipes in tiled
-        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth()/2)/MarioBros.PPM, (rect.getY() + rect.getHeight()/2)/MarioBros.PPM);
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/MarioBros.PPM, rect.getHeight()/2/MarioBros.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-        //create brick body and fixtures around bricks in tiled
-        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth()/2)/MarioBros.PPM, (rect.getY() + rect.getHeight()/2)/MarioBros.PPM);
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/MarioBros.PPM, rect.getHeight()/2/MarioBros.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-        //create coin body and fixtures around bricks in tiled
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth()/2)/MarioBros.PPM, (rect.getY() + rect.getHeight()/2)/MarioBros.PPM); //rect.getXY starts at the lower left hand corder of the object
-
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/MarioBros.PPM, rect.getHeight()/2/MarioBros.PPM); //set as box starts these coordinates at the center of the box
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
+        new B2WorldCreator(world, map);
         //create the mario player in the world
         player = new Mario(world);
 
