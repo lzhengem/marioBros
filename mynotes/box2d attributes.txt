@@ -1,0 +1,13 @@
+box2d attribute:
+world
+	bodies - these are containers they are invisible
+		mass
+		velocity
+		location
+		angles
+		fixtures - these are phycics of the bodies
+			shape
+			density
+			friction
+			restitution - bouncyness
+

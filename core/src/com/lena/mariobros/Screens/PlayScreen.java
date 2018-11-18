@@ -9,6 +9,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -22,9 +25,14 @@ public class PlayScreen implements Screen {
     private Viewport gamePort;
     private Hud hud;
 
+    //Tiled map variables
     private TmxMapLoader maploader; //loads in our map
     private TiledMap map; //actual map
     private OrthogonalTiledMapRenderer renderer; //renders map to screen
+
+    //Box2d variables
+    private World world;
+    private Box2DDebugRenderer b2dr; //graphical representation of bodies and fixtures inside of box2d world
 
 
     public PlayScreen(MarioBros game){
@@ -41,6 +49,9 @@ public class PlayScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map);
         //center around our viewport /2 because the default is to center at 0,0
         gamecam.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2,0);
+
+        world = new World(new Vector2(0,0),true);
+        b2dr = new Box2DDebugRenderer();
     }
     @Override
     public void show() {
