@@ -95,6 +95,7 @@ public class PlayScreen implements Screen {
 
         world.step(1/60f,6,2);
 
+        //move mario whenever something gets changed
         player.update(dt);
 
         gamecam.position.x = player.b2body.getPosition().x;
