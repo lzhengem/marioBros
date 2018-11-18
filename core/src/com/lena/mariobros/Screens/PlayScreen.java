@@ -5,12 +5,19 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -50,8 +57,58 @@ public class PlayScreen implements Screen {
         //center around our viewport /2 because the default is to center at 0,0
         gamecam.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2,0);
 
-        world = new World(new Vector2(0,0),true);
+        world = new World(new Vector2(0,0),true); //means if object is not called, this world wont take note of it
         b2dr = new Box2DDebugRenderer();
+
+        //define body and fixtures
+        BodyDef bdef = new BodyDef();
+        PolygonShape shape = new PolygonShape(); //for fixture
+        FixtureDef fdef = new FixtureDef();
+        Body body;
+
+        //create ground body and fixtures around ground in tiled
+        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
+            Rectangle rect = ((RectangleMapObject)object).getRectangle();
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(rect.getX() + rect.getWidth()/2, rect.getY() + rect.getHeight()/2);
+            body = world.createBody(bdef);
+            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }
+
+        //create pipe body and fixtures around pipes in tiled
+        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
+            Rectangle rect = ((RectangleMapObject)object).getRectangle();
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(rect.getX() + rect.getWidth()/2, rect.getY() + rect.getHeight()/2);
+            body = world.createBody(bdef);
+            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }
+        //create brick body and fixtures around bricks in tiled
+        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
+            Rectangle rect = ((RectangleMapObject)object).getRectangle();
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(rect.getX() + rect.getWidth()/2, rect.getY() + rect.getHeight()/2);
+            body = world.createBody(bdef);
+            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }
+
+        //create coin body and fixtures around bricks in tiled
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
+            Rectangle rect = ((RectangleMapObject)object).getRectangle();
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set(rect.getX() + rect.getWidth()/2, rect.getY() + rect.getHeight()/2);
+            body = world.createBody(bdef);
+            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }
+
     }
     @Override
     public void show() {
@@ -77,7 +134,11 @@ public class PlayScreen implements Screen {
         //clear the screen
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //render our game map
         renderer.render();
+
+        //renderer our Box2DDebugLines
+        b2dr.render(world,gamecam.combined);
         //set the camera to show the hud
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         //draw the hud
