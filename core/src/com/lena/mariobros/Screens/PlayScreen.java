@@ -25,12 +25,14 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.lena.mariobros.MarioBros;
 import com.lena.mariobros.Scenes.Hud;
+import com.lena.mariobros.Sprites.Mario;
 
 public class PlayScreen implements Screen {
     private MarioBros game;
     private OrthographicCamera gamecam;
     private Viewport gamePort;
     private Hud hud;
+    private Mario player;
 
     //Tiled map variables
     private TmxMapLoader maploader; //loads in our map
@@ -44,10 +46,7 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(MarioBros game){
         this.game = game;
-//        this.texture = new Texture("badlogic.jpg");
         gamecam = new OrthographicCamera();
-//        gamePort = new StretchViewport(800,490,gamecam); //stretches the photo to the screen
-//        gamePort = new ScreenViewport(gamecam); //picture does not change size, it will get cut off from the screen if screen gets smaller
         gamePort = new FitViewport(MarioBros.V_WIDTH,MarioBros.V_HEIGHT,gamecam); //fits the width or height onto the screen. our screen is 800 x 480
         hud = new Hud(game.batch);
 
@@ -102,12 +101,16 @@ public class PlayScreen implements Screen {
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth()/2, rect.getY() + rect.getHeight()/2);
+            bdef.position.set(rect.getX() + rect.getWidth()/2, rect.getY() + rect.getHeight()/2); //rect.getXY starts at the lower left hand corder of the object
+
             body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2); //set as box starts these coordinates at the center of the box
             fdef.shape = shape;
             body.createFixture(fdef);
         }
+
+        //create the mario player in the world
+        player = new Mario(world);
 
     }
     @Override
@@ -122,6 +125,8 @@ public class PlayScreen implements Screen {
     public void update(float dt){
         //check if there is any input
         handleInput(dt);
+
+        world.step(1/60f,6,2);
         //update camera everytime something happens
         gamecam.update();
         renderer.setView(gamecam); //only render what gamecam can see
