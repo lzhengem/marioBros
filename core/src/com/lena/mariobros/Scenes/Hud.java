@@ -7,12 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.lena.mariobros.MarioBros;
 
 //Hud is Heads Up Display - this is for displaying the health and other stats
-public class Hud {
+public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport; //when world moves, we want our Hud to stay the same, so need new viewport
     private Integer worldTimer;
@@ -57,6 +58,13 @@ public class Hud {
 
         //add table to stage
         stage.addActor(table);
+
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+        
 
     }
 }
