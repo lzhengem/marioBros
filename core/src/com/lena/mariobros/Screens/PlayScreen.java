@@ -56,7 +56,7 @@ public class PlayScreen implements Screen {
         //center around our viewport /2 because the default is to center at 0,0
         gamecam.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2,0);
 
-        world = new World(new Vector2(0,0),true); //means if object is not called, this world wont take note of it
+        world = new World(new Vector2(0,-10),true); //means if object is not called, this world wont take note of it
         b2dr = new Box2DDebugRenderer();
 
         //define body and fixtures
