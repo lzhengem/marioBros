@@ -11,6 +11,7 @@ import com.lena.mariobros.Screens.PlayScreen;
 public class MarioBros extends Game {
 	public static final int V_WIDTH = 400; //virtual width for game
 	public static final int V_HEIGHT = 208; //virtual height for game
+	public static final float PPM = 100;//pixels per meter. used because b2d uses meters use this to scale
 
 	public SpriteBatch batch; //only want to create one spritebatch because it is memory intensive
 	

@@ -47,12 +47,12 @@ public class PlayScreen implements Screen {
     public PlayScreen(MarioBros game){
         this.game = game;
         gamecam = new OrthographicCamera();
-        gamePort = new FitViewport(MarioBros.V_WIDTH,MarioBros.V_HEIGHT,gamecam); //fits the width or height onto the screen. our screen is 800 x 480
+        gamePort = new FitViewport(MarioBros.V_WIDTH /MarioBros.PPM,MarioBros.V_HEIGHT/MarioBros.PPM,gamecam); //fits the width or height onto the screen. our screen is 800 x 480
         hud = new Hud(game.batch);
 
         maploader = new TmxMapLoader();
         map = maploader.load("level1.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map);
+        renderer = new OrthogonalTiledMapRenderer(map, 1/MarioBros.PPM);
         //center around our viewport /2 because the default is to center at 0,0
         gamecam.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2,0);
 
@@ -69,9 +69,9 @@ public class PlayScreen implements Screen {
         for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth()/2, rect.getY() + rect.getHeight()/2);
+            bdef.position.set((rect.getX() + rect.getWidth()/2)/MarioBros.PPM, (rect.getY() + rect.getHeight()/2)/MarioBros.PPM);
             body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth()/2/MarioBros.PPM, rect.getHeight()/2/MarioBros.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
@@ -80,9 +80,9 @@ public class PlayScreen implements Screen {
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth()/2, rect.getY() + rect.getHeight()/2);
+            bdef.position.set((rect.getX() + rect.getWidth()/2)/MarioBros.PPM, (rect.getY() + rect.getHeight()/2)/MarioBros.PPM);
             body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth()/2/MarioBros.PPM, rect.getHeight()/2/MarioBros.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
@@ -90,9 +90,9 @@ public class PlayScreen implements Screen {
         for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth()/2, rect.getY() + rect.getHeight()/2);
+            bdef.position.set((rect.getX() + rect.getWidth()/2)/MarioBros.PPM, (rect.getY() + rect.getHeight()/2)/MarioBros.PPM);
             body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth()/2/MarioBros.PPM, rect.getHeight()/2/MarioBros.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
@@ -101,10 +101,10 @@ public class PlayScreen implements Screen {
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth()/2, rect.getY() + rect.getHeight()/2); //rect.getXY starts at the lower left hand corder of the object
+            bdef.position.set((rect.getX() + rect.getWidth()/2)/MarioBros.PPM, (rect.getY() + rect.getHeight()/2)/MarioBros.PPM); //rect.getXY starts at the lower left hand corder of the object
 
             body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2); //set as box starts these coordinates at the center of the box
+            shape.setAsBox(rect.getWidth()/2/MarioBros.PPM, rect.getHeight()/2/MarioBros.PPM); //set as box starts these coordinates at the center of the box
             fdef.shape = shape;
             body.createFixture(fdef);
         }
