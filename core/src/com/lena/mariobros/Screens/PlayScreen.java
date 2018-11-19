@@ -28,6 +28,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.lena.mariobros.MarioBros;
 import com.lena.mariobros.Scenes.Hud;
 import com.lena.mariobros.Sprites.Mario;
+import com.lena.mariobros.Sprites.Sakura;
 import com.lena.mariobros.Tools.B2WorldCreator;
 
 public class PlayScreen implements Screen {
@@ -38,8 +39,8 @@ public class PlayScreen implements Screen {
     private OrthographicCamera gamecam;
     private Viewport gamePort;
     private Hud hud;
-    private Mario player;
-
+//    private Mario player;
+    private Sakura player;
     //Tiled map variables
     private TmxMapLoader maploader; //loads in our map
     private TiledMap map; //actual map
@@ -51,7 +52,8 @@ public class PlayScreen implements Screen {
 
 
     public PlayScreen(MarioBros game){
-        atlas = new TextureAtlas("Mario_and_Enemies.pack");
+//        atlas = new TextureAtlas("Mario_and_Enemies.pack");
+        atlas = new TextureAtlas("Sakura.pack");
         this.game = game;
         gamecam = new OrthographicCamera();
         gamePort = new FitViewport(MarioBros.V_WIDTH /MarioBros.PPM,MarioBros.V_HEIGHT/MarioBros.PPM,gamecam); //fits the width or height onto the screen. our screen is 800 x 480
@@ -68,9 +70,10 @@ public class PlayScreen implements Screen {
 
         new B2WorldCreator(world, map);
         //create the mario player in the world
-        player = new Mario(world,this);
-
+//        player = new Mario(world,this);
+        player = new Sakura(world, this);
     }
+
 
     public TextureAtlas getAtlas(){
         return atlas;
