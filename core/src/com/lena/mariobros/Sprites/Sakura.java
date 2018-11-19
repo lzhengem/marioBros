@@ -20,8 +20,8 @@ public class Sakura extends Sprite {
         super(screen.getAtlas().findRegion("Sakura_move"));
         this.world = world;
         defineSakura();
-        sakuraStand = new TextureRegion(getTexture(),0,0,30,30);
-        setBounds(0,0,20/ MarioBros.PPM, 16/MarioBros.PPM);
+        sakuraStand = new TextureRegion(getTexture(),0,0,30,45);
+        setBounds(0,0,15/ MarioBros.PPM, 22/MarioBros.PPM);
         setRegion(sakuraStand);
 
     }
