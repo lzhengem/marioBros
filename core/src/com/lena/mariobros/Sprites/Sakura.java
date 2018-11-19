@@ -21,13 +21,13 @@ public class Sakura extends Sprite {
         this.world = world;
         defineSakura();
         sakuraStand = new TextureRegion(getTexture(),0,0,30,45);
-        setBounds(0,0,15/ MarioBros.PPM, 22/MarioBros.PPM);
+        setBounds(0,0,20/ MarioBros.PPM, 25/MarioBros.PPM);
         setRegion(sakuraStand);
 
     }
 
     public void update(float dt){
-        setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
+        setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2 + 4/MarioBros.PPM);
     }
 
     public void defineSakura(){

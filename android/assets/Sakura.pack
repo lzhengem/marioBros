@@ -6,7 +6,7 @@ repeat: none
 Sakura_move
   rotate: false
   xy: 1, 1
-  size: 153, 41
-  orig: 153, 41
+  size: 140, 95
+  orig: 140, 95
   offset: 0, 0
   index: -1
