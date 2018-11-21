@@ -17,9 +17,9 @@ public class WorldContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
 
         //if either of the fixtures is head, then it is mario hitting soemthing with his head
-        if(fixA.getUserData() == "head" || fixB.getUserData() == "head"){
+        if("head".equals(fixA.getUserData()) || "head".equals(fixB.getUserData())){
             //get the head and the object it is colliding with
-            Fixture head = fixA.getUserData() == "head" ? fixA : fixB;
+            Fixture head = fixA.getUserData().equals("head") ? fixA : fixB;
             Fixture object = head == fixA ? fixB : fixA;
 
             //if mario is hitting an interactive tile object, call onHeadHit
