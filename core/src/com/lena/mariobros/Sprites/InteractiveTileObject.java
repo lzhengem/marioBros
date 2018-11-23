@@ -35,7 +35,7 @@ public abstract class InteractiveTileObject {
         body = world.createBody(bdef);
         shape.setAsBox(bounds.getWidth()/2/MarioBros.PPM, bounds.getHeight()/2/MarioBros.PPM); //set as box starts these coordinates at the center of the box
         fdef.shape = shape;
-        body.createFixture(fdef);
+        
         //create a fixture around each interactive object
         fixture = body.createFixture(fdef);
     }
