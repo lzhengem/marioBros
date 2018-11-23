@@ -20,5 +20,6 @@ public class Brick extends InteractiveTileObject {
     public void onHeadHit() {
         Gdx.app.log("Brick", "Collision");
         setCategoryFilter(MarioBros.DESTROYED_BIT);
+        getCell().setTile(null);
     }
 }
