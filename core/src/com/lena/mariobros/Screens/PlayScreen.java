@@ -104,6 +104,9 @@ public class PlayScreen implements Screen {
         //move mario whenever something gets changed
         player.update(dt);
 
+        //update the hud
+        hud.update(dt);
+
         gamecam.position.x = player.b2body.getPosition().x;
         //update camera everytime something happens
         gamecam.update();
