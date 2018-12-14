@@ -42,6 +42,8 @@ public class PlayScreen implements Screen {
     private Hud hud;
 //    private Mario player;
     private Sakura player;
+
+    private Music music;
     //Tiled map variables
     private TmxMapLoader maploader; //loads in our map
     private TiledMap map; //actual map
@@ -75,6 +77,9 @@ public class PlayScreen implements Screen {
         player = new Sakura(world, this);
 
         world.setContactListener(new WorldContactListener());
+        music = MarioBros.manager.get("audio/music/mario_music.ogg", Music.class);
+        music.setLooping(true);
+        music.play();
     }
 
 
