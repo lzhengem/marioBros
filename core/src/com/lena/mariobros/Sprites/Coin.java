@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.lena.mariobros.MarioBros;
 import com.lena.mariobros.Scenes.Hud;
+import com.lena.mariobros.Screens.PlayScreen;
 
 
 public class Coin extends InteractiveTileObject{
@@ -16,8 +17,8 @@ public class Coin extends InteractiveTileObject{
 
 
 
-    public Coin(World world, TiledMap map, Rectangle bounds){
-        super(world, map, bounds);
+    public Coin(PlayScreen screen, Rectangle bounds){
+        super(screen, bounds);
         tileSet = map.getTileSets().getTileSet("tileset_gutter");
         fixture.setUserData(this);
         setCategoryFilter(MarioBros.COIN_BIT);

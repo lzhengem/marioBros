@@ -29,9 +29,9 @@ public class Sakura extends Sprite {
     private float stateTimer;
     private boolean runningRight;
 
-    public Sakura(World world, PlayScreen screen){
+    public Sakura(PlayScreen screen){
         super(screen.getAtlas().findRegion("Sakura_move"));
-        this.world = world;
+        this.world = screen.getWorld();
         //set up sakura's current state of movements
         currentState = State.STANDING;
         previousState = State.STANDING;

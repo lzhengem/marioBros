@@ -72,10 +72,10 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0,-10),true); //means if object is not called, this world wont take note of it
         b2dr = new Box2DDebugRenderer();
 
-        new B2WorldCreator(world, map);
+        new B2WorldCreator(this);
         //create the mario player in the world
-//        player = new Mario(world,this);
-        player = new Sakura(world, this);
+//        player = new Mario(this);
+        player = new Sakura(this);
 
         world.setContactListener(new WorldContactListener());
         music = MarioBros.manager.get("audio/music/mario_music.ogg", Music.class);
@@ -148,6 +148,14 @@ public class PlayScreen implements Screen {
         //when screen size changes, then resize the gameport
         gamePort.update(width,height);
 
+    }
+
+    public TiledMap getMap(){
+        return map;
+    }
+
+    public World getWorld(){
+        return world;
     }
 
     @Override

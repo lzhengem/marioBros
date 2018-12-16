@@ -10,11 +10,14 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.lena.mariobros.MarioBros;
+import com.lena.mariobros.Screens.PlayScreen;
 import com.lena.mariobros.Sprites.Brick;
 import com.lena.mariobros.Sprites.Coin;
 
 public class B2WorldCreator {
-    public B2WorldCreator(World world, TiledMap map){
+    public B2WorldCreator(PlayScreen screen){
+        World world = screen.getWorld();
+        TiledMap map = screen.getMap();
         //define body and fixtures
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape(); //for fixture
@@ -45,13 +48,13 @@ public class B2WorldCreator {
         //create brick body and fixtures around bricks in tiled
         for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            new Brick(world, map, rect);
+            new Brick(screen, rect);
         }
 
         //create coin body and fixtures around bricks in tiled
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {//our first object is at index 2 from bottom
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Coin(world, map, rect);
+            new Coin(screen, rect);
         }
 
     }
